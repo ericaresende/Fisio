@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,7 +17,7 @@ import br.com.ericacorreia.fisio.repository.ConsultasRepository;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/Consultas")
+@RequestMapping("/api/consultas")
 public class ConstultasController {
     private ConsultasRepository service = new ConsultasRepository();
     @GetMapping
@@ -39,11 +38,12 @@ public class ConstultasController {
     @PutMapping
     public ResponseEntity<Object> edit(@RequestBody Consultas consultas) {
         try{
-            return new ResponseEntity<>(service.delete(consultas), HttpStatus.OK);
+            return new ResponseEntity<>(service.save(consultas), HttpStatus.OK);
         } catch (IllegalAccessError ia) {
             return new ResponseEntity<>(ia.getMessage(), HttpStatus.BAD_REQUEST);
         }catch (Exception e) {
             return new ResponseEntity<>("lamento, houve um erro inesperado em nossa aplicação, tente novamente mais tarde!!!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
